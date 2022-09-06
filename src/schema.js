@@ -7,6 +7,8 @@ type Query {
   tracksForHome: [Track!]!
   "get individual track"
   track(id: ID!): Track
+  "fetch a specific module, given its id"
+  module(id: ID!): Module!
 }
 
 type Mutation {
@@ -34,8 +36,10 @@ type Track {
   author: Author!
   "tracks main illustration display in card"
   thumbnail: String
-  "approximate length to complete in minutes"
-  length: Int
+  "approximate length to complete in seconds"
+  length: Int @deprecated(reason: "Use durationInSeconds")
+  "the tracks full duration in seconds"
+  durationInSeconds: Int
   "number of modules in track"
   modulesCount: Int
   "complete description of track"
@@ -51,8 +55,14 @@ type Module {
   id: ID!
   "title given to the module"
   title: String!
-  "approx length of module in minutes"
-  length: Int
+  "approx length of module in seconds"
+  length: Int @deprecated(reason: "Use durationInSeconds")
+  "modules full duration in seconds"
+  durationInSeconds: Int
+  "modules text content description"
+  content: String
+  "modules url link to its tutorial video"
+  videoUrl: String
 }
 
 "An Author of a complete Track or Module"

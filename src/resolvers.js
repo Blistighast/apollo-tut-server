@@ -8,6 +8,9 @@ const resolvers = {
     // get a single track by id, for the Tracks page
     track: (_, { id }, { dataSources }) => {
       return dataSources.trackAPI.getTrack(id)
+    },
+    module: (_, { id }, { dataSources }) => {
+      return dataSources.trackAPI.getModule(id)
     }
   },
 
@@ -23,7 +26,7 @@ const resolvers = {
           message: `Successfully incremented number of views for track ${id}`,
           track
         }
-        
+
       } catch(err) {
         return {
           code: err.extensions.response.status,
@@ -43,7 +46,12 @@ const resolvers = {
     //get module in track
     modules: ({ id }, _, {dataSources}) => {
       return dataSources.trackAPI.getTrackModules(id)
-    }
+    },
+
+    durationInSeconds: ({ length }) => length,
+  },
+  Module: {
+    durationInSeconds: ({ length }) => length,
   }
 }
 
